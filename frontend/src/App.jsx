@@ -20,7 +20,7 @@ function Badge({ text, variant = "default" }) {
   }
   const baseStyle = variant === "amber"
     ? { backgroundColor: "#DBEAFE", color: "#1D4ED8", border: "1px solid #BFDBFE" }
-    : { backgroundColor: "#F3E8FF", color: "#7E22CE", border: "1px solid #E9D5FF" }
+    : { backgroundColor: "#DCFCE7", color: "#15803D", border: "1px solid #BBF7D0" }
  return (
     <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={baseStyle}>
       {text}
@@ -42,13 +42,13 @@ function RemedyCard({ remedy, onClick }) {
             <span className="text-xs font-mono text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
               {remedy.abbreviation}
             </span>
-            <span className="text-xs text-purple-400 font-bold">{remedy.letter}</span>
+            <span className="text-xs text-green-500 font-bold">{remedy.letter}</span>
           </div>
           <h3 className="text-blue-900 font-semibold text-base leading-snug truncate group-hover:text-blue-600 transition-colors">
             {remedy.full_name}
           </h3>
           {remedy.common_name && (
-            <p className="text-purple-400 text-xs mt-0.5 italic">{remedy.common_name}</p>
+            <p className="text-green-500 text-xs mt-0.5 italic">{remedy.common_name}</p>
           )}
         </div>
         <ChevronRight className="w-5 h-5 text-blue-200 group-hover:text-blue-500 transition-colors shrink-0 mt-1" />
@@ -88,7 +88,7 @@ function RemedyDetail({ remedy, onClose }) {
             </div>
             <h2 className="text-blue-900 font-bold text-lg leading-tight">{remedy.full_name}</h2>
             {remedy.common_name && (
-              <p className="text-purple-500 text-sm mt-1 italic">{remedy.common_name}</p>
+              <p className="text-green-600 text-sm mt-1 italic">{remedy.common_name}</p>
             )}
           </div>
           <button
@@ -229,7 +229,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-blue-900 font-extrabold text-2xl leading-none tracking-tight">Jarvis.care</h1>
-              <p className="text-purple-400 text-xs font-medium">Remedy Explorer</p>
+              <p className="text-green-500 text-xs font-medium">Remedy Explorer</p>
             </div>
           </div>
           <div className="flex-1 max-w-lg w-full relative mx-auto">
@@ -255,7 +255,7 @@ export default function App() {
   <button
     onClick={downloadJSON}
     title="Download results as JSON"
-    className="text-xs px-3 py-1.5 rounded-full bg-purple-100 text-purple-700 border border-purple-200 hover:bg-purple-200 transition-colors font-medium whitespace-nowrap"
+    className="text-xs px-3 py-1.5 rounded-full bg-green-100 text-green-700 border border-green-200 hover:bg-green-200 transition-colors font-medium whitespace-nowrap"
   >
     ⬇ Export JSON
   </button>
@@ -279,8 +279,8 @@ export default function App() {
               onClick={() => setSelectedLetter(l === selectedLetter ? "" : l)}
               className={`text-xs px-3 py-1 rounded-full whitespace-nowrap font-mono font-bold transition-colors ${
                 selectedLetter === l
-                  ? "bg-purple-500 text-white shadow"
-                  : "text-blue-500 hover:bg-purple-50 hover:text-purple-600"
+                  ? "bg-green-600 text-white shadow"
+                  : "text-blue-500 hover:bg-purple-50 hover:text-green-600"
               }`}
             >
               {l}
