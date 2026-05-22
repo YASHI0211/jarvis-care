@@ -19,8 +19,8 @@ function Badge({ text, variant = "default" }) {
     amber: "",
   }
   const baseStyle = variant === "amber"
-    ? { backgroundColor: "#DBEAFE", color: "#1D4ED8", border: "1px solid #BFDBFE" }
-    : { backgroundColor: "#DCFCE7", color: "#15803D", border: "1px solid #BBF7D0" }
+    ? { backgroundColor: "#DBEAFE", color: "#15295f", border: "1px solid #BFDBFE" }
+    : { backgroundColor: "#DCFCE7", color: "#025c23", border: "1px solid #BBF7D0" }
  return (
     <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={baseStyle}>
       {text}
