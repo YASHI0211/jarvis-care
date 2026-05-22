@@ -70,7 +70,7 @@ export default function Chatbot() {
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-blue-50 text-gray-400 px-3 py-2 rounded-2xl text-sm rounded-bl-none">
-                  Dr. Jarvis soch raha hai... 🤔
+                  Dr. Jarvis is thinking... <span className="animate-pulse">⏳</span>
                 </div>
               </div>
             )}
@@ -83,7 +83,7 @@ export default function Chatbot() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === "Enter" && sendMessage()}
-              placeholder="Symptoms likhो..."
+              placeholder="Write your symptoms..."
               className="flex-1 border border-blue-200 rounded-full px-3 py-1.5 text-sm focus:outline-none focus:border-blue-400"
             />
             <button
