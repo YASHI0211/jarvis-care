@@ -1,3 +1,4 @@
+const chatRouter = require('./routes/chat')
 const express = require('express')
 const cors = require('cors')
 const fs = require('fs')
@@ -32,6 +33,7 @@ const remedies = allRemedies.filter(r => {
   return { ...r, full_name, general }
 })
 
+app.use('/api/chat', chatRouter)
 app.get('/api/remedies', (req, res) => {
   const { search, letter, page = 1, limit = 20 } = req.query
   let filtered = remedies

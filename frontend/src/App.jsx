@@ -1,3 +1,4 @@
+import Chatbot from "./Chatbot"
 import { useState, useEffect, useCallback } from "react"
 import { Search, X, ChevronRight, Leaf, AlertCircle, Loader2 } from "lucide-react"
 
@@ -317,6 +318,7 @@ export default function App() {
       {selectedRemedy && (
         <RemedyDetail remedy={selectedRemedy} onClose={() => setSelectedRemedy(null)} />
       )}
+      <Chatbot />
     </div>
   )
 }
