@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { Search, X, ChevronRight, Leaf, AlertCircle, Loader2 } from "lucide-react"
 
-const API = "/api"
+const API = import.meta.env.VITE_API_URL || "/api"
 
 function useDebounce(value, delay) {
   const [debounced, setDebounced] = useState(value)
