@@ -172,6 +172,15 @@ export default function App() {
   const [selectedRemedy, setSelectedRemedy] = useState(null)
   const debouncedSearch = useDebounce(search, 400)
   const LIMIT = 18
+  const downloadJSON = () => {
+  const blob = new Blob([JSON.stringify(remedies, null, 2)], { type: "application/json" })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = `jarvis-care-${debouncedSearch || selectedLetter || "all"}-remedies.json`
+  a.click()
+  URL.revokeObjectURL(url)
+}
 
   useEffect(() => {
     fetch(`${API}/letters`)
@@ -239,9 +248,18 @@ export default function App() {
               </button>
             )}
           </div>
-          <div className="text-xs text-blue-400 whitespace-nowrap font-semibold">
-            <span className="text-blue-700 font-bold">{total}</span> remedies
-          </div>
+          <div className="flex items-center gap-3">
+  <div className="text-xs text-blue-400 whitespace-nowrap font-semibold">
+    <span className="text-blue-700 font-bold">{total}</span> remedies
+  </div>
+  <button
+    onClick={downloadJSON}
+    title="Download results as JSON"
+    className="text-xs px-3 py-1.5 rounded-full bg-purple-100 text-purple-700 border border-purple-200 hover:bg-purple-200 transition-colors font-medium whitespace-nowrap"
+  >
+    ⬇ Export JSON
+  </button>
+</div>
         </div>
         {/* Letter Bar */}
         <div className="max-w-5xl mx-auto px-4 pb-3 flex gap-1 overflow-x-auto">
