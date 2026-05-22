@@ -15,42 +15,46 @@ function useDebounce(value, delay) {
 
 function Badge({ text, variant = "default" }) {
   const styles = {
-    default: "bg-emerald-900/40 text-emerald-300 border border-emerald-700/50",
-    amber: "bg-amber-900/40 text-amber-300 border border-amber-700/50",
+    default: "",
+    amber: "",
   }
-  return (
-    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${styles[variant]}`}>
+  const baseStyle = variant === "amber"
+    ? { backgroundColor: "#DBEAFE", color: "#1D4ED8", border: "1px solid #BFDBFE" }
+    : { backgroundColor: "#F3E8FF", color: "#7E22CE", border: "1px solid #E9D5FF" }
+ return (
+    <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={baseStyle}>
       {text}
     </span>
   )
+
 }
 
 function RemedyCard({ remedy, onClick }) {
   return (
     <div
       onClick={() => onClick(remedy)}
-      className="group bg-white border border-blue-100 rounded-2xl p-5 cursor-pointer shadow-sm hover:shadow-lg hover:border-blue-300 transition-all duration-200 flex flex-col min-h-[170px]"
-      style={{ boxShadow: '0 2px 8px 0 rgba(30, 136, 229, 0.06)' }}
+      className="group bg-white border border-blue-100 rounded-2xl p-5 cursor-pointer hover:shadow-lg hover:border-blue-300 transition-all duration-200 flex flex-col min-h-[170px]"
+      style={{ boxShadow: '0 2px 8px 0 rgba(24, 95, 165, 0.07)' }}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-mono text-blue-700 bg-blue-100 px-2 py-0.5 rounded border border-blue-200">
+            <span className="text-xs font-mono text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
               {remedy.abbreviation}
             </span>
-            <span className="text-xs text-blue-300 font-bold">{remedy.letter}</span>
+            <span className="text-xs text-purple-400 font-bold">{remedy.letter}</span>
           </div>
           <h3 className="text-blue-900 font-semibold text-base leading-snug truncate group-hover:text-blue-600 transition-colors">
             {remedy.full_name}
           </h3>
           {remedy.common_name && (
-            <p className="text-blue-400 text-xs mt-0.5 italic">{remedy.common_name}</p>
+            <p className="text-purple-400 text-xs mt-0.5 italic">{remedy.common_name}</p>
           )}
         </div>
         <ChevronRight className="w-5 h-5 text-blue-200 group-hover:text-blue-500 transition-colors shrink-0 mt-1" />
       </div>
       {remedy.general && (
-        <p className="text-blue-400 text-xs mt-3 line-clamp-2 leading-relaxed">
+        <p className="text-slate-400 text-xs mt-3 line-clamp-2 leading-relaxed">
           {remedy.general}
         </p>
       )}
@@ -70,39 +74,39 @@ function RemedyDetail({ remedy, onClose }) {
   const sectionKeys = Object.keys(remedy.sections || {})
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl">
-        <div className="flex items-start justify-between p-6 border-b border-slate-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+      <div className="bg-white border border-blue-100 rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl">
+        <div className="flex items-start justify-between p-6 border-b border-blue-100">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs font-mono text-emerald-400 bg-emerald-900/30 px-2 py-1 rounded border border-emerald-800/50">
+              <span className="text-xs font-mono text-blue-700 bg-blue-50 px-2 py-1 rounded border border-blue-200">
                 {remedy.abbreviation}
               </span>
               {remedy.potencies && remedy.potencies.map((p) => (
                 <Badge key={p} text={p} variant="amber" />
               ))}
             </div>
-            <h2 className="text-white font-bold text-lg leading-tight">{remedy.full_name}</h2>
+            <h2 className="text-blue-900 font-bold text-lg leading-tight">{remedy.full_name}</h2>
             {remedy.common_name && (
-              <p className="text-emerald-400 text-sm mt-1 italic">{remedy.common_name}</p>
+              <p className="text-purple-500 text-sm mt-1 italic">{remedy.common_name}</p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800"
+            className="text-slate-400 hover:text-blue-700 transition-colors p-1 rounded-lg hover:bg-blue-50"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="flex gap-1 px-6 pt-4 border-b border-slate-800 overflow-x-auto">
+        <div className="flex gap-1 px-6 pt-4 border-b border-blue-100 overflow-x-auto">
           {["overview", ...sectionKeys].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`text-xs px-3 py-2 rounded-t-lg font-medium whitespace-nowrap transition-colors ${
                 activeTab === tab
-                  ? "bg-emerald-900/40 text-emerald-300 border border-b-0 border-emerald-700/50"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-blue-50 text-blue-700 border border-b-0 border-blue-200"
+                  : "text-slate-400 hover:text-blue-600"
               }`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -115,7 +119,7 @@ function RemedyDetail({ remedy, onClose }) {
               {remedy.general && (
                 <div>
                   <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">General</h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">{remedy.general}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed">{remedy.general}</p>
                 </div>
               )}
               {remedy.keywords && remedy.keywords.length > 0 && (
@@ -131,22 +135,22 @@ function RemedyDetail({ remedy, onClose }) {
               {remedy.relationships && (
                 <div>
                   <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Relationships</h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">{remedy.relationships}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed">{remedy.relationships}</p>
                 </div>
               )}
             </div>
           ) : (
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-relaxed">
               {remedy.sections[activeTab]}
             </p>
           )}
         </div>
-        <div className="px-6 py-3 border-t border-slate-800">
+        <div className="px-6 py-3 border-t border-blue-100">
           <a
             href={remedy.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-slate-500 hover:text-emerald-400 transition-colors"
+            className="text-xs text-slate-400 hover:text-blue-600 transition-colors"
           >
             View source
           </a>
@@ -206,50 +210,47 @@ export default function App() {
   const totalPages = Math.ceil(total / LIMIT)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 text-blue-900">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-blue-900">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur shadow-md border-b border-blue-100">
-        <div className="max-w-5xl mx-auto px-4 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur shadow-sm border-b border-blue-100">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-200 rounded-xl flex items-center justify-center shadow">
-              <Leaf className="w-6 h-6 text-blue-600" />
+            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow">
+              <Leaf className="w-6 h-6 text-white" />
             </div>
             <div>
               <h1 className="text-blue-900 font-extrabold text-2xl leading-none tracking-tight">Jarvis.care</h1>
-              <p className="text-blue-500 text-xs font-medium">Remedy Explorer</p>
+              <p className="text-purple-400 text-xs font-medium">Remedy Explorer</p>
             </div>
           </div>
           <div className="flex-1 max-w-lg w-full relative mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
             <input
               type="text"
               placeholder="Search remedies or symptoms..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-white border border-blue-200 rounded-full pl-12 pr-4 py-2 text-base text-blue-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm transition-all"
+              className="w-full bg-white border border-blue-200 rounded-full pl-12 pr-4 py-2.5 text-base text-blue-900 placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm transition-all"
               autoFocus
             />
             {search && (
-              <button
-                onClick={() => setSearch("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2"
-              >
+              <button onClick={() => setSearch("")} className="absolute right-4 top-1/2 -translate-y-1/2">
                 <X className="w-4 h-4 text-blue-400 hover:text-blue-600" />
               </button>
             )}
           </div>
-          <div className="text-xs text-blue-500 whitespace-nowrap font-semibold">
+          <div className="text-xs text-blue-400 whitespace-nowrap font-semibold">
             <span className="text-blue-700 font-bold">{total}</span> remedies
           </div>
         </div>
         {/* Letter Bar */}
-        <div className="max-w-5xl mx-auto px-4 pb-2 flex gap-1 overflow-x-auto">
+        <div className="max-w-5xl mx-auto px-4 pb-3 flex gap-1 overflow-x-auto">
           <button
             onClick={() => setSelectedLetter("")}
             className={`text-xs px-3 py-1 rounded-full whitespace-nowrap font-bold transition-colors ${
               !selectedLetter
                 ? "bg-blue-600 text-white shadow"
-                : "text-blue-600 hover:bg-blue-100"
+                : "text-blue-500 hover:bg-blue-50"
             }`}
           >
             All
@@ -260,8 +261,8 @@ export default function App() {
               onClick={() => setSelectedLetter(l === selectedLetter ? "" : l)}
               className={`text-xs px-3 py-1 rounded-full whitespace-nowrap font-mono font-bold transition-colors ${
                 selectedLetter === l
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-blue-600 hover:bg-blue-100"
+                  ? "bg-purple-500 text-white shadow"
+                  : "text-blue-500 hover:bg-purple-50 hover:text-purple-600"
               }`}
             >
               {l}
@@ -269,16 +270,17 @@ export default function App() {
           ))}
         </div>
       </header>
+
       <div className="max-w-6xl mx-auto px-6 py-8">
         {error && (
-          <div className="flex items-center gap-3 bg-red-900/30 border border-red-700/50 rounded-xl p-4 mb-6">
+          <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
             <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
-            <p className="text-red-300 text-sm">{error}</p>
+            <p className="text-red-500 text-sm">{error}</p>
           </div>
         )}
         {loading ? (
           <div className="flex items-center justify-center py-24">
-            <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
+            <Loader2 className="w-8 h-8 text-blue-400 animate-spin" />
           </div>
         ) : remedies.length === 0 ? (
           <div className="text-center py-24">
@@ -296,17 +298,17 @@ export default function App() {
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="text-sm px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  className="text-sm px-4 py-2 rounded-lg bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   Previous
                 </button>
                 <span className="text-sm text-slate-400">
-                  Page <span className="text-white font-medium">{page}</span> of {totalPages}
+                  Page <span className="text-blue-700 font-medium">{page}</span> of {totalPages}
                 </span>
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="text-sm px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  className="text-sm px-4 py-2 rounded-lg bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 >
                   Next
                 </button>

@@ -5,7 +5,7 @@ const API = import.meta.env.VITE_API_URL || "/api"
 export default function Chatbot() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState([
-    { role: "assistant", text: "Namaste! 🌿 Main Dr. Jarvis hoon. Apne symptoms batao ya koi remedy ke baare mein poochho!" }
+    { role: "assistant", text: "Hello! 🌿 I'm Dr. Jarvis, your homoeopathic assistant. Tell me your symptoms or ask about any remedy!" }
   ])
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
@@ -26,7 +26,7 @@ export default function Chatbot() {
       const data = await res.json()
       setMessages(prev => [...prev, { role: "assistant", text: data.reply }])
     } catch {
-      setMessages(prev => [...prev, { role: "assistant", text: "Sorry, kuch error aa gaya. Please try again!" }])
+      setMessages(prev => [...prev, { role: "assistant", text: "Sorry, an error occurred. Please try again!" }])
     } finally {
       setLoading(false)
     }
